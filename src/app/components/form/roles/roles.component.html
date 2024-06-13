@@ -1,0 +1,9 @@
+<section class="roles">
+  <h3>assign a role</h3>
+  <div class="roles-list">
+    @for (role of roles; track $index) {
+    <app-role [role]="role.title" [description]="role.description"></app-role>
+    }
+  </div>
+  <p>Don't understand how the role works? <span>Learn more about it</span></p>
+</section>

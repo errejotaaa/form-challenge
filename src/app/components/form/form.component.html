@@ -1,0 +1,203 @@
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-header">
+      <h3 class="form-header--title">Add new user</h3>
+      <div class="form-header--buttons">
+        <button
+          mat-button
+          color="primary"
+          class="cancel-btn"
+          (click)="this.form.reset()"
+        >
+          CANCEL
+        </button>
+        <button
+          type="submit"
+          mat-flat-button
+          color="accent"
+          class="save-btn"
+          [disabled]="!this.form.valid"
+        >
+          SAVE USER
+        </button>
+      </div>
+    </div>
+
+    <!-- PERSONAL INFORMATION -->
+
+    <section class="pi-content">
+      <h3>PERSONAL INFORMATION</h3>
+      <div class="input-row">
+        <div class="input-col">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="form-input"
+          >
+            <mat-label>First name (optional)</mat-label>
+            <input matInput formControlName="firstName" />
+            @if (firstName?.errors?.['maxlength']) {
+            <mat-error>Max characters exceeded</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="form-input"
+          >
+            <mat-label>Email address</mat-label>
+            <input matInput formControlName="email" />
+            @if(email?.touched && email?.errors?.['required']){
+            <mat-error>Email is required</mat-error>
+            } @if(email?.touched && email?.errors?.['invalidEmail']){
+            <mat-error>Ivalid email format</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field class="form-input" floatLabel="always">
+            <mat-label>Language</mat-label>
+            <mat-select formControlName="languages">
+              <mat-option value="option1">English</mat-option>
+              <mat-option value="option2">Spanish</mat-option>
+              <mat-option value="option3">French</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="input-col">
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="form-input"
+          >
+            <mat-label>Last name (optional)</mat-label>
+            <input matInput formControlName="lastName" />
+            @if (lastName?.errors?.['maxlength']) {
+            <mat-error>Max characters exceeded</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field
+            appearance="fill"
+            floatLabel="always"
+            class="form-input"
+          >
+            <mat-label>Confirm email address</mat-label>
+            <input matInput formControlName="checkEmail" />
+            @if(email?.touched && email?.errors?.['required']){
+            <mat-error>Email is required</mat-error>
+            } @if(email?.touched && email?.errors?.['invalidEmail']){
+            <mat-error>Ivalid email format</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+    </section>
+    <app-roles></app-roles>
+
+    <!-- ACCESS PERMISSIONS -->
+
+    <section class="permissions">
+      <h3>Custom access Permissions</h3>
+      <div class="panel">
+        <div class="panel--header">
+          <div class="header-label-block">
+            <div class="header-label">
+              <mat-icon fontIcon="group"></mat-icon>
+              <p>Ontwikkel <span>/</span></p>
+            </div>
+            <div class="header-label">
+              <mat-icon fontIcon="folder_open"></mat-icon>
+              <p>Team A</p>
+            </div>
+          </div>
+          <button mat-button (click)="togglePanel()">
+            HIDE PERMISSION & ACCESS
+          </button>
+        </div>
+        @if(showPanel){
+        <div class="panel-section" formGroupName="dashboardAccess">
+          <h3>Dashboard access</h3>
+          <div class="panel-section--content">
+            <div class="section-headings">
+              <h3>touchpoint</h3>
+              <h3>Dashboard</h3>
+            </div>
+            <div
+              class="section-buttons-container"
+              formGroupName="touchpointEmail1"
+            >
+              <div class="section-label white-bg">
+                <mat-icon fontIcon="outgoing_mail"></mat-icon>
+                <p>Touchpoint email 1</p>
+              </div>
+              <div class="section-buttons white-bg">
+                <mat-checkbox formControlName="default"
+                  ><mat-icon fontIcon="dashboard"></mat-icon
+                  ><span>Default</span></mat-checkbox
+                >
+                <mat-checkbox formControlName="nps"
+                  ><mat-icon fontIcon="dashboard"></mat-icon> NPS
+                  dashboard</mat-checkbox
+                >
+              </div>
+            </div>
+            <div
+              class="section-buttons-container"
+              formGroupName="touchpointEmail2"
+            >
+              <div class="section-label">
+                <mat-icon fontIcon="outgoing_mail"></mat-icon>
+                <p>Touchpoint email 2</p>
+              </div>
+              <div class="section-buttons">
+                <mat-checkbox formControlName="default"
+                  ><mat-icon fontIcon="dashboard"></mat-icon
+                  >Default</mat-checkbox
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-section" formGroupName="reports">
+          <h3>Reports</h3>
+          <div class="panel-section--content">
+            <div class="section-headings">
+              <h3>touchpoint</h3>
+              <h3>Reports</h3>
+            </div>
+            <div
+              class="section-buttons-container"
+              formGroupName="touchpointEmail1"
+            >
+              <div class="section-label white-bg">
+                <mat-icon fontIcon="outgoing_mail"></mat-icon>
+                <p>Touchpoint email 1</p>
+              </div>
+              <div class="section-buttons white-bg">
+                <mat-checkbox formControlName="default"
+                  ><mat-icon fontIcon="insert_drive_file"></mat-icon
+                  >Default</mat-checkbox
+                >
+              </div>
+            </div>
+            <div
+              class="section-buttons-container"
+              formGroupName="touchpointEmail2"
+            >
+              <div class="section-label">
+                <mat-icon fontIcon="outgoing_mail"></mat-icon>
+                <p>Touchpoint email 2</p>
+              </div>
+              <div class="section-buttons">
+                <mat-checkbox formControlName="default"
+                  ><mat-icon fontIcon="insert_drive_file"></mat-icon
+                  >Default</mat-checkbox
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </section>
+  </form>
+</div>
