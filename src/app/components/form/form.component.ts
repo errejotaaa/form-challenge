@@ -3,7 +3,6 @@ import { Component, type OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RolesComponent } from './roles/roles.component';
 import { MatButtonModule } from '@angular/material/button';
-import { ResetService } from '../../services/reset.service';
 import { customEmailValidator } from '../../validators/custom-email.validator';
 import { compareEmails } from '../../validators/compare-emails.validator';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -57,6 +56,7 @@ export class FormComponent implements OnInit {
         },
       ],
       languages: [null, Validators.required],
+      role: [false, Validators.required],
       dashboardAccess: this.fb.group({
         touchpointEmail1: this.fb.group({
           default: [false],
@@ -79,7 +79,7 @@ export class FormComponent implements OnInit {
       validators: [compareEmails()],
     }
   );
-  constructor(private fb: FormBuilder, private resetService: ResetService) {}
+  constructor(private fb: FormBuilder) {}
   ngOnInit(): void {}
 
   onSubmit() {
